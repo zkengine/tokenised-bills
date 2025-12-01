@@ -1,0 +1,195 @@
+[
+  {
+    "inputs": [
+      {
+        "components": [
+          {
+            "internalType": "address",
+            "name": "invoiceAddress",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "tokenId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint8",
+            "name": "valueDecimals",
+            "type": "uint8"
+          },
+          {
+            "internalType": "string",
+            "name": "symbol",
+            "type": "string"
+          },
+          {
+            "components": [
+              {
+                "components": [
+                  {
+                    "internalType": "string",
+                    "name": "name",
+                    "type": "string"
+                  },
+                  {
+                    "internalType": "string",
+                    "name": "abn",
+                    "type": "string"
+                  },
+                  {
+                    "internalType": "address",
+                    "name": "addr",
+                    "type": "address"
+                  }
+                ],
+                "internalType": "struct InvoiceConcrete.AccountInfo",
+                "name": "seller",
+                "type": "tuple"
+              },
+              {
+                "components": [
+                  {
+                    "internalType": "string",
+                    "name": "name",
+                    "type": "string"
+                  },
+                  {
+                    "internalType": "string",
+                    "name": "abn",
+                    "type": "string"
+                  },
+                  {
+                    "internalType": "address",
+                    "name": "addr",
+                    "type": "address"
+                  }
+                ],
+                "internalType": "struct InvoiceConcrete.AccountInfo",
+                "name": "buyer",
+                "type": "tuple"
+              },
+              {
+                "components": [
+                  {
+                    "internalType": "string",
+                    "name": "description",
+                    "type": "string"
+                  },
+                  {
+                    "internalType": "string",
+                    "name": "quantity",
+                    "type": "string"
+                  },
+                  {
+                    "internalType": "string",
+                    "name": "unitPrice",
+                    "type": "string"
+                  },
+                  {
+                    "internalType": "string",
+                    "name": "gst",
+                    "type": "string"
+                  },
+                  {
+                    "internalType": "string",
+                    "name": "totalPrice",
+                    "type": "string"
+                  }
+                ],
+                "internalType": "struct InvoiceConcrete.InvoiceItem[]",
+                "name": "items",
+                "type": "tuple[]"
+              },
+              {
+                "internalType": "string",
+                "name": "invoiceLink",
+                "type": "string"
+              },
+              {
+                "internalType": "string",
+                "name": "subtotal",
+                "type": "string"
+              },
+              {
+                "internalType": "string",
+                "name": "totalGst",
+                "type": "string"
+              },
+              {
+                "internalType": "uint256",
+                "name": "totalValue",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint64",
+                "name": "invoiceDate",
+                "type": "uint64"
+              },
+              {
+                "internalType": "uint64",
+                "name": "confirmDate",
+                "type": "uint64"
+              },
+              {
+                "internalType": "uint64",
+                "name": "dueDate",
+                "type": "uint64"
+              },
+              {
+                "internalType": "enum InvoiceConcrete.InvoiceState",
+                "name": "state",
+                "type": "uint8"
+              },
+              {
+                "internalType": "bool",
+                "name": "isValid",
+                "type": "bool"
+              }
+            ],
+            "internalType": "struct InvoiceConcrete.SlotInfo",
+            "name": "slotInfo",
+            "type": "tuple"
+          }
+        ],
+        "internalType": "struct InvoiceSVG.SVGParams",
+        "name": "params",
+        "type": "tuple"
+      }
+    ],
+    "name": "generateSVG",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "invoice_",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "tokenId_",
+        "type": "uint256"
+      }
+    ],
+    "name": "generateSVG",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  }
+]
