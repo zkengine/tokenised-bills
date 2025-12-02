@@ -1,0 +1,196 @@
+import noinvioceImage from '@/assets/invioce/no-invioce.svg';
+import NoDataFound from '@/components/common/no-data-found';
+import QuerySelect from '@/components/common/query-select';
+import InvoiceCard from '@/components/part/shared/invoice-card';
+import InvoiceSkeleton from '@/components/part/shared/invoice-skeleton';
+import { PayablesQuery } from '@/graphql/queries';
+import { NETWORK_CONFIG, dueInItems, stateItems } from '@/lib/constants';
+import { getDayDiffs, unixTimestampInDays } from '@/lib/utils';
+import { pageSizeAtom } from '@/states';
+import { Payable } from '@/typings';
+import { Stack } from '@mui/material';
+import { useInfiniteQuery } from '@tanstack/react-query';
+import { request } from 'graphql-request';
+import { useAtomValue } from 'jotai';
+import Image from 'next/image';
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useState,
+} from 'react';
+import { useInView } from 'react-intersection-observer';
+import { useAccount, useChainId } from 'wagmi';
+import CardActions from './card-actions';
+
+const Payables = () => {
+  const [state, setState] = useState('');
+  const [dueIn, setDueIn] = useState('');
+  const [openActionDrawer, setOpenActionDrawer] = useState(false);
+  const [selectedPayable, setSelectedPayable] = useState<Payable>();
+
+  const { address: account } = useAccount();
+  const chainId = useChainId();
+  const pageSize = useAtomValue(pageSizeAtom);
+
+  const { ref, inView } = useInView();
+
+  const queryStates = useMemo(
+    () => (state === '' ? ['0', '1', '2'] : [state]),
+    [state]
+  );
+  const queryDueIn = useMemo(
+    () => unixTimestampInDays(dueIn === '' ? 365 * 99 : Number(dueIn)),
+    [dueIn]
+  );
+
+  const {
+    data,
+    status,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    refetch,
+  } = useInfiniteQuery({
+    queryKey: ['payables', chainId, account, state, dueIn],
+    queryFn: async ({ pageParam = 1 }) => {
+      return request(NETWORK_CONFIG[chainId].graphUrl, PayablesQuery, {
+        pageSize,
+        skip: (pageParam - 1) * pageSize,
+        account,
+        states: queryStates.map(Number),
+        dueIn: queryDueIn,
+      })
+        .then((response: { Invoice: Payable[] }) => {
+          return response?.Invoice;
+        })
+        .catch((error: Error) => {
+          console.log(error);
+          return [];
+        });
+    },
+    initialPageParam: 1,
+    getNextPageParam: (lastPage, allPages) => {
+      const nextPage =
+        lastPage.length >= pageSize ? allPages.length + 1 : undefined;
+      return nextPage;
+    },
+    enabled: !!account,
+  });
+
+  const drawerCloseHandler = useCallback(() => {
+    setOpenActionDrawer(false);
+    refetch();
+  }, [refetch]);
+
+  useEffect(() => {
+    if (inView && hasNextPage) {
+      fetchNextPage();
+    }
+  }, [inView, hasNextPage, fetchNextPage]);
+
+  useLayoutEffect(() => {
+    setTimeout(() => {
+      drawerCloseHandler();
+    }, 0);
+  }, [chainId, account, drawerCloseHandler]);
+
+  const stateConverter = (state: string, dueDate: string) => {
+    return state === '0'
+      ? 'tbc'
+      : state === '1'
+      ? getDayDiffs(dueDate) > 0
+        ? 'unpaid'
+        : 'overdue'
+      : state === '2'
+      ? 'finalised'
+      : '';
+  };
+
+  if (!account || status === 'pending') {
+    return <InvoiceSkeleton />;
+  }
+
+  return (
+    <>
+      <Stack
+        className='w-full'
+        direction={'row'}
+        justifyContent={'space-between'}
+        my={1.5}
+      >
+        <div className='mb-[-0.45rem] flex w-[80%] flex-row justify-start'>
+          <QuerySelect
+            label='Status'
+            value={state}
+            changeHandler={setState}
+            menuItems={stateItems}
+          />
+
+          <QuerySelect
+            label='Due In'
+            value={dueIn}
+            changeHandler={setDueIn}
+            menuItems={dueInItems}
+          />
+        </div>
+      </Stack>
+
+      {(!data || data.pages.flatMap((val) => val).length === 0) &&
+      !hasNextPage ? (
+        <NoDataFound title='payables'>
+          <Image
+            src={noinvioceImage}
+            alt='no payables found'
+            className='h-24 w-24'
+          />
+        </NoDataFound>
+      ) : (
+        <>
+          <Stack
+            className='w-full'
+            direction={'column'}
+            gap={2}
+            height={'100%'}
+          >
+            {data?.pages.map((payables: Payable[]) =>
+              payables.map((payable: Payable, idx: number) => {
+                return (
+                  <InvoiceCard
+                    key={idx}
+                    title='payable of Tax Invoice'
+                    innerRef={payables.length === idx + 1 ? ref : null}
+                    data={payable}
+                    state={stateConverter(
+                      payable.state || '0',
+                      payable.dueDate
+                    )}
+                    onClick={() => {
+                      setSelectedPayable(payable);
+                      setOpenActionDrawer(true);
+                    }}
+                  />
+                );
+              })
+            )}
+
+            {isFetchingNextPage && (
+              <div className='text-primary mt-3 text-center'>Loading...</div>
+            )}
+          </Stack>
+        </>
+      )}
+
+      {openActionDrawer && (
+        <CardActions
+          payable={selectedPayable}
+          openActionDrawer={openActionDrawer}
+          onDrawerCloseHandler={drawerCloseHandler}
+        />
+      )}
+    </>
+  );
+};
+
+export default Payables;
