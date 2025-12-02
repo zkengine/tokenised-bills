@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import { ReactNode } from 'react';
 
 interface Props {
@@ -13,11 +12,6 @@ const NoDataFound = ({ title, children }: Props) => {
       <div className='w-90 text-center text-sm leading-snug'>
         No {title} found. <br /> Check here for upcoming {title}.
       </div>
-      {title === 'payables' && (
-        <Link href='/issue' className='text-primary mt-2 underline'>
-          Issue a new Invoice
-        </Link>
-      )}
     </div>
   );
 };
