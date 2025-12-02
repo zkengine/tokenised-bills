@@ -1,5 +1,13 @@
 # Tokenised Bills
 
+Tokenized Bills is not just a tool for invoicing; it is a Liquidity Protocol.
+
+For Business: We turn the 90-day wait into T+0 cash.
+
+For Capital: We turn risky, scattered invoices into structured, safe, and high-yield digital assets.
+
+The Mechanism: By combining Pooling with 3-Tier Tranching, we create a system where risk is mathematically isolated, and liquidity is constantly flowing.
+
 ## Getting Started
 
 First, run the development server:
