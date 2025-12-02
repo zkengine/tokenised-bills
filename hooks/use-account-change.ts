@@ -9,7 +9,10 @@ const useAccountChange = () => {
 
   useEffect(() => {
     const unwatch = watchAccount(config, {
-      onChange: (account: GetAccountReturnType, prevAccount: GetAccountReturnType) => {
+      onChange: (
+        account: GetAccountReturnType,
+        prevAccount: GetAccountReturnType
+      ) => {
         setAccountChanged(prevAccount.address !== account.address);
       },
     });

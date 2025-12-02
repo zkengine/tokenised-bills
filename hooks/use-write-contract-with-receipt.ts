@@ -1,6 +1,10 @@
-import { useCallback, useMemo } from 'react';
-import { BaseError, useWaitForTransactionReceipt, useWriteContract } from 'wagmi';
 import { WriteParams } from '@/typings';
+import { useCallback, useMemo } from 'react';
+import {
+  BaseError,
+  useWaitForTransactionReceipt,
+  useWriteContract,
+} from 'wagmi';
 
 const useWriteContractWithReceipt = () => {
   const {
@@ -24,11 +28,15 @@ const useWriteContractWithReceipt = () => {
 
   const write = useCallback(
     (writeContractParms: WriteParams) => {
-      if (writeContractParms?.abi && writeContractParms?.address && writeContractParms?.functionName) {
+      if (
+        writeContractParms?.abi &&
+        writeContractParms?.address &&
+        writeContractParms?.functionName
+      ) {
         writeContract({ ...writeContractParms });
       }
     },
-    [writeContract],
+    [writeContract]
   );
 
   const failureReason = useMemo(
@@ -38,10 +46,10 @@ const useWriteContractWithReceipt = () => {
           (txReceiptError as BaseError)?.shortMessage ||
           (txReceiptError as BaseError)?.message
         : isTxAttemptError
-          ? txAttemptFailureReason?.message ||
-            (txAttemptError as BaseError)?.shortMessage ||
-            (txAttemptError as BaseError)?.message
-          : undefined,
+        ? txAttemptFailureReason?.message ||
+          (txAttemptError as BaseError)?.shortMessage ||
+          (txAttemptError as BaseError)?.message
+        : undefined,
     [
       isTxReceiptError,
       txReceiptFailureReason?.message,
@@ -49,7 +57,7 @@ const useWriteContractWithReceipt = () => {
       isTxAttemptError,
       txAttemptFailureReason?.message,
       txAttemptError,
-    ],
+    ]
   );
 
   return useMemo(
@@ -64,7 +72,16 @@ const useWriteContractWithReceipt = () => {
       txReceiptError,
       failureReason,
     }),
-    [write, txHash, txAttemptError, isTxAttemptError, isTxReceiptError, isSuccess, txReceiptError, failureReason],
+    [
+      write,
+      txHash,
+      txAttemptError,
+      isTxAttemptError,
+      isTxReceiptError,
+      isSuccess,
+      txReceiptError,
+      failureReason,
+    ]
   );
 };
 
