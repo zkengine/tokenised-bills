@@ -7,8 +7,8 @@ import { Container } from '@mui/material';
 import classNames from 'classnames';
 import { useState } from 'react';
 
-type Tab = 'payables' | 'receivables' | 'invest';
-const tabs = ['payables', 'receivables', 'invest'];
+type Tab = 'payables' | 'receivables' | 'funding pools';
+const tabs = ['payables', 'receivables', 'funding pools'];
 
 // Programmable Accounts Receivable Tokenisation
 const PART = () => {
@@ -22,7 +22,7 @@ const PART = () => {
     <>
       <nav className='z-10'>
         <div className='flex justify-center'>
-          <div className='bg-secondary flex h-9.25 w-full justify-between rounded-[10px]'>
+          <div className='bg-secondary flex h-9.25 w-full justify-between rounded-[10px] px-2'>
             {tabs.map((tab) => {
               return (
                 <div
@@ -56,7 +56,7 @@ const PART = () => {
         <Container disableGutters className='flex h-full flex-col items-center'>
           {selectedTab === 'payables' && <Payables />}
           {selectedTab === 'receivables' && <Receivables />}
-          {selectedTab === 'invest' && <Invest />}
+          {selectedTab === 'funding pools' && <Invest />}
         </Container>
       </section>
     </>
