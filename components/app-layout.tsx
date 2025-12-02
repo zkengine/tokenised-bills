@@ -1,0 +1,30 @@
+'use client';
+
+import { Container } from '@mui/material';
+import React, { memo, useEffect } from 'react';
+import { ToastContainer } from 'react-toastify';
+import Copyright from './copyright';
+import Header from './header';
+
+const AppLayout = ({ children }: { children: React.ReactNode }) => {
+  useEffect(() => {
+    document.body.scrollTop = document.documentElement.scrollTop = 0;
+  }, []);
+
+  return (
+    <>
+      <main className='flex min-h-screen flex-col items-center justify-center'>
+        <div className='relative flex h-full w-full flex-col overflow-hidden bg-white sm:h-[95vh] sm:max-w-lg sm:rounded-md lg:max-w-7xl'>
+          <Container className='mx-auto h-full'>
+            <Header />
+            {children}
+          </Container>
+        </div>
+        <Copyright />
+      </main>
+      <ToastContainer closeButton />
+    </>
+  );
+};
+
+export default memo(AppLayout);
