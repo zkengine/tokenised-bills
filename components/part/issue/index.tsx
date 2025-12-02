@@ -272,7 +272,7 @@ const CreateInvoice = () => {
             <div className='flex w-full flex-col items-end justify-end'>
               <Button
                 className={twMerge(
-                  'h-12 w-[11.85714rem] rounded border-none bg-[#7918F5]! text-[1rem] font-semibold text-[#FBFAFC]!',
+                  'h-12 w-[11.85714rem] rounded border-none bg-primary! text-[1rem] font-semibold text-[#FBFAFC]!',
                   !isValidInvoiceForm && 'cursor-not-allowed opacity-50'
                 )}
                 onClick={() => setOpenConfirmModal(true)}

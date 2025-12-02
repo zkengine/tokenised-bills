@@ -333,7 +333,7 @@ const ConfirmModal = (props: IConfirmModalProps) => {
             <Button
               onClick={onCreatingInvoice}
               className={twMerge(
-                'inline-flex w-[45%] items-center justify-center gap-2 bg-[#7918F5]! fill-white! px-4 py-2 text-base font-medium text-white! hover:bg-[#7918F5]!'
+                'inline-flex w-[45%] items-center justify-center gap-2 bg-primary! fill-white! px-4 py-2 text-base font-medium text-white! hover:bg-primary/80!'
               )}
             >
               OK
