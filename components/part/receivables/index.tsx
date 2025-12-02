@@ -113,12 +113,14 @@ const Receivables = () => {
           />
         </div>
 
-        <DefaultButton
-          btnName='Sell'
-          onClick={() => setStartSellProcess(true)}
-          className='!hover:bg-[#FFAA00] mx-0! h-[1.6625rem]! w-19.25! bg-[#ff7d13]!'
-          startIcon={<SellIcon />}
-        />
+        {data && data.pages.flatMap((val) => val).length > 0 && (
+          <DefaultButton
+            btnName='Sell'
+            onClick={() => setStartSellProcess(true)}
+            className='!hover:bg-[#FFAA00] mx-0! h-[1.6625rem]! w-19.25! bg-[#ff7d13]!'
+            startIcon={<SellIcon />}
+          />
+        )}
       </Stack>
 
       {(!data || data.pages.flatMap((val) => val).length === 0) &&
