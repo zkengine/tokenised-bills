@@ -211,7 +211,7 @@ const Payables = () => {
           style: { height: '100%', width: '100%' },
         }}
       >
-        <div className='relative h-full w-full flex flex-col items-center '>
+        <div className='relative h-full w-full flex flex-col'>
           <div className='absolute right-6 top-6 z-50'>
             <Image
               src={closeAlt}
@@ -220,7 +220,7 @@ const Payables = () => {
               onClick={() => setOpenCreateDrawer(false)}
             />
           </div>
-          <section className='overflow-y-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden'>
+          <section className='overflow-y-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden w-full h-full'>
             <CreateInvoice />
           </section>
         </div>

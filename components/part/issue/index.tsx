@@ -136,7 +136,7 @@ const CreateInvoice = () => {
   }, []);
 
   return (
-    <div className='min-h-[calc(100vh-150px)] w-full px-12'>
+    <div className='min-h-[calc(100vh-150px)] w-full px-12 flex justify-center'>
       <div className='my-12 flex flex-wrap justify-between gap-4'>
         <div className='w-[58.35714rem]'>
           <main className='container'>
