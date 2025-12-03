@@ -80,7 +80,7 @@ const Payables = () => {
         lastPage.length >= pageSize ? allPages.length + 1 : undefined;
       return nextPage;
     },
-    enabled: !!account,
+    enabled: !!account && !!chainId,
   });
 
   const drawerCloseHandler = useCallback(() => {
@@ -195,7 +195,7 @@ const Payables = () => {
       )}
 
       <div
-        className='sticky bottom-6 z-50 mt-auto mr-6 flex h-[60px] w-[60px] cursor-pointer items-center justify-center self-end rounded-full bg-white shadow-[0px_4px_20px_rgba(0,0,0,0.15)]'
+        className='fixed bottom-6 mr-6 z-50 flex h-[60px] w-[60px] cursor-pointer items-center justify-center self-end rounded-full bg-white shadow-[0px_4px_20px_rgba(0,0,0,0.15)]'
         onClick={() => setOpenCreateDrawer(true)}
         title='Issue a new invoice'
       >

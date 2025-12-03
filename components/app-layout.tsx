@@ -14,8 +14,8 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
       <main className='flex min-h-screen flex-col items-center justify-center'>
-        <div className='relative flex h-full w-full flex-col overflow-hidden bg-white sm:h-[95vh] sm:max-w-lg sm:rounded-md lg:max-w-7xl'>
-          <Container className='mx-auto h-full'>
+        <div className='relative flex flex-1 w-full flex-col overflow-hidden bg-white sm:max-w-lg sm:rounded-md lg:max-w-7xl transform-gpu'>
+          <Container className='mx-auto h-[95vh] flex flex-col'>
             <Header />
             {children}
           </Container>

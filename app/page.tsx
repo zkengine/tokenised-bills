@@ -52,8 +52,8 @@ const PART = () => {
         </div>
       </nav>
 
-      <section className='h-[calc(100%-6rem)] overflow-y-auto [-ms-overflow-style:none] [scrollbar-width:none] sm:absolute sm:w-[90%] [&::-webkit-scrollbar]:hidden'>
-        <Container disableGutters className='flex h-full flex-col items-center'>
+      <section className='h-[calc(100%-6rem)] flex-1 overflow-y-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden'>
+        <Container disableGutters className='flex flex-col items-center h-full'>
           {selectedTab === 'payables' && <Payables />}
           {selectedTab === 'receivables' && <Receivables />}
           {selectedTab === 'funding pools' && <Invest />}
