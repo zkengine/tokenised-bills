@@ -14,6 +14,22 @@ const theme = createTheme({
   cssVariables: {
     colorSchemeSelector: 'class',
   },
+  palette: {
+    primary: {
+      main: '#FF5C00',
+    },
+    secondary: {
+      main: '#EEEEEE',
+    },
+    background: {
+      default: '#FFFFFF',
+      paper: '#FFFFFF',
+    },
+    text: {
+      primary: '#171717',
+      secondary: '#666666',
+    },
+  },
   typography: {
     fontFamily: ebGaramond.style.fontFamily,
   },

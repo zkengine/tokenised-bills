@@ -23,6 +23,9 @@ interface Props {
   closeOnOverlayClick?: boolean;
   closeOnEscape?: boolean;
   onModalClose?: () => void;
+  maxWidth?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | false;
+  fullWidth?: boolean;
+  PaperProps?: any;
 }
 
 const FullscreenModal = ({
@@ -38,6 +41,9 @@ const FullscreenModal = ({
   closeOnEscape = true,
   fullscreenBasedUponMediaQuery = 'sm',
   onModalClose,
+  maxWidth = 'sm',
+  fullWidth = false,
+  PaperProps,
 }: Props) => {
   const theme = useTheme();
   const fs = useMediaQuery(
@@ -62,6 +68,9 @@ const FullscreenModal = ({
         fullScreen={fs}
         onClose={onCloseHandler}
         className={classNames('bg-white', modalClassName)}
+        maxWidth={maxWidth}
+        fullWidth={fullWidth}
+        PaperProps={PaperProps}
       >
         {header && (
           <DialogTitle className={headerClassName}>{header}</DialogTitle>

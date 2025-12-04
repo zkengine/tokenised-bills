@@ -7,8 +7,8 @@ interface Props {
 const MaxButton = ({ onClick }: Props) => {
   return (
     <DefaultButton
-      className='text-primary! mx-0! w-fit! bg-transparent hover:bg-transparent'
-      btnName='MAX'
+      className='mx-0! w-fit! bg-transparent hover:bg-transparent'
+      btnName='Max'
       onClick={onClick}
     />
   );

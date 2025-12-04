@@ -115,7 +115,10 @@ const SplitButton = ({ receivable, onDrawerCloseHandler }: Props) => {
         >
           <>
             <FormControl>
-              <label htmlFor='recipient-input' className='text-base'>
+              <label
+                htmlFor='recipient-input'
+                className='text-base font-medium'
+              >
                 Recipient
               </label>
               <AutocompleteInput
@@ -136,12 +139,12 @@ const SplitButton = ({ receivable, onDrawerCloseHandler }: Props) => {
             </FormControl>
             <FormControl>
               <div className='flex items-center justify-between'>
-                <label htmlFor='amount-input' className='text-base'>
+                <label htmlFor='amount-input' className='text-base font-medium'>
                   Amount
                 </label>
                 <div className='flex items-center gap-2 text-sm'>
                   <span>
-                    Balance:{' '}
+                    Amount remaining:{' '}
                     {formatCurrency(
                       formatUnits(
                         BigInt(receivable?.amount || '0'),
@@ -158,15 +161,15 @@ const SplitButton = ({ receivable, onDrawerCloseHandler }: Props) => {
                 name='amount'
                 error={amountHasError && onSubmitting}
                 value={formData.amount}
-                inputProps={{ type: 'number' }}
+                // inputProps={{ type: 'number' }}
                 onChange={(e) => {
+                  if (isNaN(Number(e.target.value)) || !e.target.value) return;
+
                   setFormData({
                     ...formData,
                     amount: `${
-                      parseInt(e.target.value) < 0
-                        ? 0
-                        : Number(e.target.value) >
-                          Number(formattedReceivableBalance)
+                      Number(e.target.value) >
+                      Number(formattedReceivableBalance)
                         ? Number(formattedReceivableBalance)
                         : Number(e.target.value)
                     }`,

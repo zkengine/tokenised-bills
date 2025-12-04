@@ -44,7 +44,9 @@ const FormMutationModal = ({
             disabled={actionBtnDisabled}
           />
         }
-        footerClassName='flex items-center justify-center'
+        footerClassName='flex items-center justify-center mx-[1.0625rem]'
+        maxWidth='xs'
+        fullWidth
       >
         <form noValidate autoComplete='off'>
           <Stack className='mt-5 gap-8'>{children}</Stack>

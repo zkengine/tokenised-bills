@@ -19,7 +19,7 @@ const DefaultButton: FC<Props> = ({
       variant='contained'
       {...props}
       className={classNames(
-        'bg-primary hover:bg-primary/40 mx-6 h-8.5 w-full rounded-md py-2.5! text-sm font-semibold text-white uppercase! shadow-none hover:border-none hover:shadow-none',
+        'hover:bg-primary/40 mx-6 h-8.5 w-full rounded-md py-2.5! text-sm font-semibold text-white shadow-none hover:border-none hover:shadow-none',
         className
       )}
       onClick={onClick}

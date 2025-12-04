@@ -133,7 +133,6 @@ const WithdrawButton = ({ receivable, onDrawerCloseHandler }: Props) => {
                 id='amount-input'
                 name='amount'
                 value={formData.amount}
-                inputProps={{ type: 'number' }}
                 endAdornment={<span>{uaTokenInfo.symbol}</span>}
                 readOnly
               />
