@@ -1,3 +1,5 @@
+import closeAlt from '@/assets/images/close-alt.svg';
+import plusPrimary from '@/assets/images/plus-primary.svg';
 import noinvioceImage from '@/assets/invioce/no-invioce.svg';
 import DefaultButton from '@/components/common/default-button';
 import NoDataFound from '@/components/common/no-data-found';
@@ -11,19 +13,21 @@ import { getDayDiffs, unixTimestampInDays } from '@/lib/utils';
 import { pageSizeAtom } from '@/states';
 import { Receivable } from '@/typings';
 import SellIcon from '@mui/icons-material/Sell';
-import { Stack } from '@mui/material';
+import { Drawer, Grid, Stack } from '@mui/material';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { useAtomValue } from 'jotai';
 import Image from 'next/image';
 import { useEffect, useMemo, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { useAccount, useChainId } from 'wagmi';
+import CreateInvoice from '../issue';
 import SellableList from './sell/sellable-list';
 
 const Receivables = () => {
   const [state, setState] = useState('');
   const [dueIn, setDueIn] = useState('');
   const [openActionDrawer, setOpenActionDrawer] = useState(false);
+  const [openCreateDrawer, setOpenCreateDrawer] = useState(false);
   const [startSellProcess, setStartSellProcess] = useState(false);
   const [selectedReceivable, setSelectedReceivable] = useState<Receivable>();
 
@@ -117,7 +121,8 @@ const Receivables = () => {
           <DefaultButton
             btnName='Sell'
             onClick={() => setStartSellProcess(true)}
-            className='!hover:bg-[#FFAA00] mx-0! h-[1.6625rem]! w-19.25! bg-[#ff7d13]!'
+            variant='outlined'
+            className='!hover:bg-[#FFAA00] text-[#ff7d13]! mx-0! h-[1.6625rem]! w-19.25! border-[#ff7d13]!'
             startIcon={<SellIcon />}
           />
         )}
@@ -133,38 +138,41 @@ const Receivables = () => {
           />
         </NoDataFound>
       ) : (
-        <Stack
+        <Grid
+          container
+          spacing={2}
           className='w-full'
-          direction={'column'}
-          gap={2}
-          height={'100%'}
+          sx={{ height: '100%' }}
           mb={2}
         >
-          {data?.pages.map((receivables: Receivable[]) =>
+          {data?.pages.map((receivables: Receivable[], pageIdx: number) =>
             receivables.map((receivable, idx) => {
               return (
-                <InvoiceCard
-                  key={idx}
-                  title='receivable'
-                  innerRef={receivables.length === idx + 1 ? ref : null}
-                  data={receivable}
-                  state={stateConverter(
-                    receivable.state || '0',
-                    receivable.invoice.dueDate
-                  )}
-                  onClick={() => {
-                    setSelectedReceivable(receivable);
-                    setOpenActionDrawer(true);
-                  }}
-                />
+                <Grid size={{ xs: 12, md: 6 }} key={`${pageIdx}-${idx}`}>
+                  <InvoiceCard
+                    title='receivable'
+                    innerRef={receivables.length === idx + 1 ? ref : null}
+                    data={receivable}
+                    state={stateConverter(
+                      receivable.state || '0',
+                      receivable.invoice.dueDate
+                    )}
+                    onClick={() => {
+                      setSelectedReceivable(receivable);
+                      setOpenActionDrawer(true);
+                    }}
+                  />
+                </Grid>
               );
             })
           )}
 
           {isFetchingNextPage && (
-            <div className='text-primary mt-3 text-center'>Loading...</div>
+            <Grid size={{ xs: 12 }}>
+              <div className='text-primary mt-3 text-center'>Loading...</div>
+            </Grid>
           )}
-        </Stack>
+        </Grid>
       )}
 
       {openActionDrawer && (
@@ -178,6 +186,38 @@ const Receivables = () => {
       {startSellProcess && (
         <SellableList onSellFinishHandler={drawerCloseHandler} />
       )}
+
+      <div
+        className='fixed bottom-6 mr-6 z-50 flex h-[60px] w-[60px] cursor-pointer items-center justify-center self-end rounded-full bg-white shadow-[0px_4px_20px_rgba(0,0,0,0.15)]'
+        onClick={() => setOpenCreateDrawer(true)}
+        title='Issue a new invoice'
+      >
+        <Image src={plusPrimary} alt='create invoice' width={24} height={24} />
+      </div>
+
+      <Drawer
+        anchor='bottom'
+        open={openCreateDrawer}
+        onClose={() => setOpenCreateDrawer(false)}
+        PaperProps={{
+          className: 'h-full w-full',
+          style: { height: '100%', width: '100%' },
+        }}
+      >
+        <div className='relative h-full w-full flex flex-col'>
+          <div className='absolute right-6 top-6 z-50'>
+            <Image
+              src={closeAlt}
+              alt='close'
+              className='cursor-pointer'
+              onClick={() => setOpenCreateDrawer(false)}
+            />
+          </div>
+          <section className='overflow-y-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden w-full h-full'>
+            <CreateInvoice />
+          </section>
+        </div>
+      </Drawer>
     </>
   );
 };

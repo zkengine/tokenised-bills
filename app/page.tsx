@@ -8,11 +8,10 @@ import classNames from 'classnames';
 import { useState } from 'react';
 
 type Tab = 'payables' | 'receivables' | 'funding pools';
-const tabs = ['payables', 'receivables', 'funding pools'];
+const tabs = ['receivables', 'payables', 'funding pools'];
 
-// Programmable Accounts Receivable Tokenisation
 const PART = () => {
-  const [selectedTab, setSelectedTab] = useState<Tab>('payables');
+  const [selectedTab, setSelectedTab] = useState<Tab>('receivables');
 
   const handleTabClick = (tab: Tab) => {
     setSelectedTab(tab);
@@ -54,8 +53,8 @@ const PART = () => {
 
       <section className='h-[calc(100%-6rem)] flex-1 overflow-y-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden'>
         <Container disableGutters className='flex flex-col items-center h-full'>
-          {selectedTab === 'payables' && <Payables />}
           {selectedTab === 'receivables' && <Receivables />}
+          {selectedTab === 'payables' && <Payables />}
           {selectedTab === 'funding pools' && <Invest />}
         </Container>
       </section>

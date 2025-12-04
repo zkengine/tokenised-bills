@@ -1,5 +1,3 @@
-import closeAlt from '@/assets/images/close-alt.svg';
-import plusPrimary from '@/assets/images/plus-primary.svg';
 import noinvioceImage from '@/assets/invioce/no-invioce.svg';
 import NoDataFound from '@/components/common/no-data-found';
 import QuerySelect from '@/components/common/query-select';
@@ -10,7 +8,7 @@ import { NETWORK_CONFIG, dueInItems, stateItems } from '@/lib/constants';
 import { getDayDiffs, unixTimestampInDays } from '@/lib/utils';
 import { pageSizeAtom } from '@/states';
 import { Payable } from '@/typings';
-import { Drawer, Grid, Stack } from '@mui/material';
+import { Grid, Stack } from '@mui/material';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { request } from 'graphql-request';
 import { useAtomValue } from 'jotai';
@@ -24,14 +22,12 @@ import {
 } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { useAccount, useChainId } from 'wagmi';
-import CreateInvoice from '../issue';
 import CardActions from './card-actions';
 
 const Payables = () => {
   const [state, setState] = useState('');
   const [dueIn, setDueIn] = useState('');
   const [openActionDrawer, setOpenActionDrawer] = useState(false);
-  const [openCreateDrawer, setOpenCreateDrawer] = useState(false);
   const [selectedPayable, setSelectedPayable] = useState<Payable>();
 
   const { address: account } = useAccount();
@@ -200,38 +196,6 @@ const Payables = () => {
           onDrawerCloseHandler={drawerCloseHandler}
         />
       )}
-
-      <div
-        className='fixed bottom-6 mr-6 z-50 flex h-[60px] w-[60px] cursor-pointer items-center justify-center self-end rounded-full bg-white shadow-[0px_4px_20px_rgba(0,0,0,0.15)]'
-        onClick={() => setOpenCreateDrawer(true)}
-        title='Issue a new invoice'
-      >
-        <Image src={plusPrimary} alt='create invoice' width={24} height={24} />
-      </div>
-
-      <Drawer
-        anchor='bottom'
-        open={openCreateDrawer}
-        onClose={() => setOpenCreateDrawer(false)}
-        PaperProps={{
-          className: 'h-full w-full',
-          style: { height: '100%', width: '100%' },
-        }}
-      >
-        <div className='relative h-full w-full flex flex-col'>
-          <div className='absolute right-6 top-6 z-50'>
-            <Image
-              src={closeAlt}
-              alt='close'
-              className='cursor-pointer'
-              onClick={() => setOpenCreateDrawer(false)}
-            />
-          </div>
-          <section className='overflow-y-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden w-full h-full'>
-            <CreateInvoice />
-          </section>
-        </div>
-      </Drawer>
     </>
   );
 };
