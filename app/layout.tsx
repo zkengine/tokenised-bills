@@ -12,8 +12,9 @@ const ebGaramond = EB_Garamond({
 });
 
 export const metadata: Metadata = {
-  title: 'Tokenised Bills',
-  description: 'Tokenised Bills',
+  title: 'Tokenised Invoices | Liquidity Protocol',
+  description:
+    'Tokenised Invoices is a Liquidity Protocol turning invoices into structured, safe, high-yield digital assets, enabling T+0 cash flow for businesses.',
 };
 
 export const viewport: Viewport = {

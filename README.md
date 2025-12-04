@@ -1,6 +1,6 @@
-# Tokenised Bills
+# Tokenised Invoices
 
-Tokenized Bills is not just a tool for invoicing; it is a Liquidity Protocol.
+Tokenized Invoices is not just a tool for invoicing; it is a Liquidity Protocol.
 
 For Business: We turn the 90-day wait into T+0 cash.
 

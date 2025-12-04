@@ -4,7 +4,7 @@ import { mantleSepoliaTestnet } from 'viem/chains';
 export const privyConfig: PrivyClientConfig = {
   defaultChain: mantleSepoliaTestnet,
   supportedChains: [mantleSepoliaTestnet],
-  loginMethods: ['google', 'wallet'],
+  loginMethods: ['email', 'google', 'wallet'],
   embeddedWallets: {
     showWalletUIs: true,
     ethereum: {
@@ -16,6 +16,11 @@ export const privyConfig: PrivyClientConfig = {
     theme: '#FFFFFF',
     showWalletLoginFirst: false,
     walletChainType: 'ethereum-only',
-    walletList: ['detected_ethereum_wallets', 'metamask', 'wallet_connect', 'okx_wallet'],
+    walletList: [
+      'detected_ethereum_wallets',
+      'metamask',
+      'wallet_connect',
+      'okx_wallet',
+    ],
   },
 };

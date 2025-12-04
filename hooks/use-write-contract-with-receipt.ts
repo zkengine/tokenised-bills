@@ -1,5 +1,6 @@
 import { WriteParams } from '@/typings';
 import { useCallback, useMemo } from 'react';
+import { mantleSepoliaTestnet } from 'viem/chains';
 import {
   BaseError,
   useWaitForTransactionReceipt,
@@ -24,6 +25,7 @@ const useWriteContractWithReceipt = () => {
     query: {
       enabled: !!txHash,
     },
+    chainId: mantleSepoliaTestnet.id,
   });
 
   const write = useCallback(
@@ -33,7 +35,7 @@ const useWriteContractWithReceipt = () => {
         writeContractParms?.address &&
         writeContractParms?.functionName
       ) {
-        writeContract({ ...writeContractParms });
+        writeContract({ ...writeContractParms, chain: mantleSepoliaTestnet });
       }
     },
     [writeContract]

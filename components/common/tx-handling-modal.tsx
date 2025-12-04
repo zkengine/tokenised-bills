@@ -2,6 +2,7 @@ import FailureIcon from '@/assets/images/failure.svg';
 import SuccessIcon from '@/assets/images/success.svg';
 import Modal from '@/components/common/modal';
 import { NETWORK_CONFIG } from '@/lib/constants';
+import { getErrorMessage } from '@/lib/helper';
 import { Transaction } from '@/typings';
 import { Theme, useMediaQuery } from '@mui/material';
 import classNames from 'classnames';
@@ -30,12 +31,11 @@ const ViewOnExpolorer = ({ txHash }: { txHash: Hash }) => {
 };
 
 export const FailureContent = ({ tx }: { tx: Transaction }) => {
+  const errorMessage = getErrorMessage(tx.failureReason, true);
   return (
     <div className='flex w-full flex-col gap-8'>
       <Image src={FailureIcon} alt='failure' className='mx-auto' />
-      <div className='text-center text-base text-[#EC364C]'>
-        {tx.failureReason}
-      </div>
+      <div className='text-center text-base text-[#EC364C]'>{errorMessage}</div>
 
       <div className='flex flex-col items-center justify-center text-xs text-[#6E747A]'>
         Something&apos;s not right.

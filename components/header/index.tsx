@@ -16,12 +16,12 @@ const Header = () => {
         <Box className='flex items-center gap-2'>
           <Image
             src={PaymentLogo.src}
-            alt='Tokenised Bills'
+            alt='Tokenised Invoices'
             width={100}
             height={100}
             className='h-8 w-8'
           />{' '}
-          <span className='text-2xl font-bold'>Tokenised Bills</span>
+          <span className='text-2xl font-bold'>Tokenised Invoices</span>
         </Box>
         <div className='flex items-center gap-2'>
           <div className='hidden cursor-pointer' onClick={() => {}}>

@@ -13,7 +13,7 @@ export default function Copyright() {
     >
       {'Copyright © '}
       <MuiLink color='inherit' href='#'>
-        Tokenised Bills
+        Tokenised Invoices
       </MuiLink>{' '}
       {new Date().getFullYear()}.
     </Typography>

@@ -10,7 +10,7 @@ import { NETWORK_CONFIG, dueInItems, stateItems } from '@/lib/constants';
 import { getDayDiffs, unixTimestampInDays } from '@/lib/utils';
 import { pageSizeAtom } from '@/states';
 import { Payable } from '@/typings';
-import { Drawer, Stack } from '@mui/material';
+import { Drawer, Grid, Stack } from '@mui/material';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { request } from 'graphql-request';
 import { useAtomValue } from 'jotai';
@@ -59,6 +59,10 @@ const Payables = () => {
   } = useInfiniteQuery({
     queryKey: ['payables', chainId, account, state, dueIn],
     queryFn: async ({ pageParam = 1 }) => {
+      if (!account || !chainId) {
+        return [];
+      }
+
       return request(NETWORK_CONFIG[chainId].graphUrl, PayablesQuery, {
         pageSize,
         skip: (pageParam - 1) * pageSize,
@@ -152,37 +156,40 @@ const Payables = () => {
         </NoDataFound>
       ) : (
         <>
-          <Stack
+          <Grid
+            container
+            spacing={2}
             className='w-full'
-            direction={'column'}
-            gap={2}
-            height={'100%'}
+            sx={{ height: '100%' }}
           >
-            {data?.pages.map((payables: Payable[]) =>
+            {data?.pages.map((payables: Payable[], pageIdx: number) =>
               payables.map((payable: Payable, idx: number) => {
                 return (
-                  <InvoiceCard
-                    key={idx}
-                    title='payable of Tax Invoice'
-                    innerRef={payables.length === idx + 1 ? ref : null}
-                    data={payable}
-                    state={stateConverter(
-                      payable.state || '0',
-                      payable.dueDate
-                    )}
-                    onClick={() => {
-                      setSelectedPayable(payable);
-                      setOpenActionDrawer(true);
-                    }}
-                  />
+                  <Grid size={{ xs: 12, md: 6 }} key={`${pageIdx}-${idx}`}>
+                    <InvoiceCard
+                      title='payable of Tax Invoice'
+                      innerRef={payables.length === idx + 1 ? ref : null}
+                      data={payable}
+                      state={stateConverter(
+                        payable.state || '0',
+                        payable.dueDate
+                      )}
+                      onClick={() => {
+                        setSelectedPayable(payable);
+                        setOpenActionDrawer(true);
+                      }}
+                    />
+                  </Grid>
                 );
               })
             )}
 
             {isFetchingNextPage && (
-              <div className='text-primary mt-3 text-center'>Loading...</div>
+              <Grid size={{ xs: 12 }}>
+                <div className='text-primary mt-3 text-center'>Loading...</div>
+              </Grid>
             )}
-          </Stack>
+          </Grid>
         </>
       )}
 
