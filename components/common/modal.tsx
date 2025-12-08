@@ -31,7 +31,7 @@ const Modal = ({
       <div className='text-[1.7143rem] font-semibold text-black'>{title}</div>
       {showCloseIcon && !!onClose && (
         <div className='cursor-pointer' onClick={onClose}>
-          <Image src={CloseAltIcon} alt='close' width={24} height={24} />
+          <Image src={CloseAltIcon} alt='close' width={18} height={18} />
         </div>
       )}
     </>

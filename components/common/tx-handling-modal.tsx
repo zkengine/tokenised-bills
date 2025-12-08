@@ -52,7 +52,6 @@ export const SucessContent = ({ tx }: { tx: Transaction }) => {
       <div className='text-primary mt-3 text-center text-base'>
         {tx.successText}
       </div>
-      {tx.txHash && <ViewOnExpolorer txHash={tx.txHash} />}
     </div>
   );
 };
@@ -87,7 +86,7 @@ const TxHandlingModal = (props: TxHandlingModalProps) => {
       <Modal
         isOpen={true}
         onClose={closeTxConfirmation}
-        modalClassName={classNames('!w-[20.7143rem]', modalClassName)}
+        modalClassName={classNames('w-full', modalClassName)}
         showCloseIcon={tx.isError || tx.isSuccess}
         contentClassName='mb-[3rem] mt-[0rem]'
       >
