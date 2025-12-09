@@ -36,7 +36,7 @@ const FormMutationModal = ({
           <DefaultButton
             btnName={actionTitle}
             className={classNames(
-              'w-45 capitalize',
+              'w-45',
               actionBtnDisabled && 'cursor-not-allowed!'
             )}
             variant='contained'

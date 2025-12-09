@@ -152,12 +152,7 @@ const Payables = () => {
         </NoDataFound>
       ) : (
         <>
-          <Grid
-            container
-            spacing={2}
-            className='w-full'
-            sx={{ height: '100%' }}
-          >
+          <Grid container spacing={2} className='w-full'>
             {data?.pages.map((payables: Payable[], pageIdx: number) =>
               payables.map((payable: Payable, idx: number) => {
                 return (

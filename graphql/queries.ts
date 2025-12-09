@@ -4,7 +4,7 @@ export const PayablesQuery = `
       where: { buyerAddr: { _eq: $account }, state: { _in: $states }, dueDate: { _lte: $dueIn } },
       limit: $pageSize,
       offset: $skip,
-      order_by: { dueDate: asc }
+      order_by: { dueDate: asc, state: asc }
     ) {
       id
       sellerName
@@ -35,7 +35,7 @@ export const ReceivablesQuery = `
       where: { owner: { _eq: $account }, state: { _in: $states }, invoice: { dueDate: { _lte: $dueIn } } },
       limit: $pageSize,
       offset: $skip,
-      order_by: { invoice: { dueDate: asc } }
+      order_by: { invoice: { dueDate: asc, state: asc } }
     ) {
       id
       owner

@@ -4,6 +4,7 @@ import DefaultButton from '@/components/common/default-button';
 import TxHandlingModal from '@/components/common/tx-handling-modal';
 import useWriteContractWithReceipt from '@/hooks/use-write-contract-with-receipt';
 import { NETWORK_CONFIG, QUERY_GC_TIME } from '@/lib/constants';
+import { getErrorMessage } from '@/lib/helper';
 import { Receivable } from '@/typings';
 import classNames from 'classnames';
 import { useMemo, useState } from 'react';
@@ -114,7 +115,7 @@ const SellConfirmationButton = ({ receivables, onSucceededHandler }: Props) => {
             txHash: txHash,
             isError,
             isSuccess,
-            failureReason: failureReason,
+            failureReason: getErrorMessage(failureReason, true),
             successText: `${
               isSuccess
                 ? `You have successfully ${

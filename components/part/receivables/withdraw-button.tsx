@@ -17,7 +17,7 @@ import {
 import { useAtomValue } from 'jotai';
 import { useMemo, useState } from 'react';
 import { Hex, formatUnits, isAddress } from 'viem';
-import { useChainId } from 'wagmi';
+import { useAccount, useChainId } from 'wagmi';
 
 interface Props {
   receivable: Receivable | undefined;
@@ -30,11 +30,13 @@ const WithdrawButton = ({ receivable, onDrawerCloseHandler }: Props) => {
     uaTokenInfo.decimals
   );
 
+  const { address } = useAccount();
+
   const [openLoadingModal, setLoadingModal] = useState(false);
   const [showWithdrawalModal, setShowWithdrawalModal] = useState(false);
   const [onSubmitting, setOnSubmitting] = useState(false);
   const [formData, setFormData] = useState<MutationForm>({
-    recipient: '',
+    recipient: address || '',
     amount: formattedReceivableBalance,
   });
 
@@ -149,9 +151,9 @@ const WithdrawButton = ({ receivable, onDrawerCloseHandler }: Props) => {
             isSuccess,
             failureReason: failureReason,
             successText: `${
-              isSuccess ? `You have successfully withdrawn this receivable` : ''
+              isSuccess ? `You have successfully withdrawn your funds` : ''
             }`,
-            defaultText: 'You are withdrawing...',
+            defaultText: 'You are withdrawing your funds...',
           }}
           onTxModalClose={onTxModalClose}
           invoiceNumber={receivable?.invoiceNumber}

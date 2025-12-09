@@ -42,6 +42,6 @@ export const receivableQueryOptions = ({
         lastPage.length >= pageSize ? allPages.length + 1 : undefined;
       return nextPage;
     },
-    enabled: !!account,
+    enabled: !!account && !!chainId,
   });
 };

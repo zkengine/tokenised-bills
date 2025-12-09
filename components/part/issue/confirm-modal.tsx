@@ -293,8 +293,8 @@ const ConfirmModal = (props: IConfirmModalProps) => {
     setSuccessText('');
     setFailureText('');
     setBuyerWalletAddress('');
-    onModalClose(isSucceed);
-  }, [failureText, onModalClose, successText]);
+    onModalClose(isSucceed || isSuccess);
+  }, [failureText, onModalClose, successText, isSuccess]);
 
   return (
     <>
@@ -349,20 +349,18 @@ const ConfirmModal = (props: IConfirmModalProps) => {
             isError,
             isSuccess,
             failureReason: failureReason,
-            successText: successText,
-            defaultText: 'You are issuing...',
+            successText:
+              successText ||
+              `${
+                isSuccess ? `You have successfully issued a new invoice` : ''
+              }`,
+            defaultText: 'You are issuing a new invoice...',
           }}
           closeTxConfirmation={handleReset}
           modalClassName='min-w-[256px]'
         >
-          {successText && (
+          {(successText || isSuccess) && (
             <div className='mt-5'>
-              <div className='mb-[8px] flex items-center justify-between'>
-                <span className='text-[#6E747A]!'>Invoice ID</span>
-                <span className='flex justify-center text-[14px] text-[#0D1821]!'>
-                  #{invoice.id}
-                </span>
-              </div>
               <div className='mb-[8px] flex items-center justify-between'>
                 <span className='text-[#6E747A]!'>Contract address</span>
                 <div className='flex items-center justify-center gap-2'>
@@ -382,7 +380,7 @@ const ConfirmModal = (props: IConfirmModalProps) => {
                 </div>
               </div>
               <div className='mb-[8px] flex items-center justify-between'>
-                <span className='text-[#6E747A]!'>Hash</span>
+                <span className='text-[#6E747A]!'>Tx Hash</span>
                 <div className='flex items-center justify-center gap-2'>
                   <a
                     href={`${networkConfig.blockExplorer.tx}/${txHash}`}

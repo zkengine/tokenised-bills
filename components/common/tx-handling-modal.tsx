@@ -4,7 +4,7 @@ import Modal from '@/components/common/modal';
 import { NETWORK_CONFIG } from '@/lib/constants';
 import { getErrorMessage } from '@/lib/helper';
 import { Transaction } from '@/typings';
-import { Theme, useMediaQuery } from '@mui/material';
+import { Link, Theme, useMediaQuery } from '@mui/material';
 import classNames from 'classnames';
 import Image from 'next/image';
 import { ReactNode, useMemo } from 'react';
@@ -20,13 +20,13 @@ const ViewOnExpolorer = ({ txHash }: { txHash: Hash }) => {
   );
 
   return (
-    <a
+    <Link
       href={`${network.blockExplorer.tx}/${txHash}`}
       className='mx-auto mt-3 text-[#FF9104]'
       target={isOnMobileScreen ? '_blank' : '_ample-art'}
     >
       View on Explorer
-    </a>
+    </Link>
   );
 };
 
@@ -47,24 +47,26 @@ export const FailureContent = ({ tx }: { tx: Transaction }) => {
 
 export const SucessContent = ({ tx }: { tx: Transaction }) => {
   return (
-    <div className='flex w-full flex-col gap-8'>
+    <div className='flex w-full flex-col gap-8 items-center justify-center'>
       <Image src={SuccessIcon} alt='success' className='mx-auto' />
       <div className='text-primary mt-3 text-center text-base'>
         {tx.successText}
       </div>
+
+      {tx.txHash && <ViewOnExpolorer txHash={tx.txHash} />}
     </div>
   );
 };
 
 export const DefaultContent = ({ tx }: { tx: Transaction }) => {
   return (
-    <div className='flex flex-col gap-8'>
-      <div className='text-primary mb-3 text-center text-base font-semibold'>
-        {tx.defaultText}
-      </div>
-
+    <div className='flex flex-col gap-8 items-center justify-center'>
       <div role='status' className='flex items-center justify-center'>
         <ScaleLoader color='#FF5C00' />
+      </div>
+
+      <div className='text-primary mb-3 text-center text-base font-semibold'>
+        {tx.defaultText}
       </div>
 
       {tx.txHash && <ViewOnExpolorer txHash={tx.txHash} />}

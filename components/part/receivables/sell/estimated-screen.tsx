@@ -105,20 +105,20 @@ const EstimatedScreen = ({ receivables, onEstimatedModalClose }: Props) => {
             bgcolor={'#F6F6F6'}
             sx={{ gap: 1.8, p: 2 }}
           >
-            <div className='flex items-center gap-1.25'>
+            <div className='flex items-center justify-between gap-1.25'>
               <Typography fontWeight={500} fontSize={16}>
-                Value of Selected Assets
+                Layer of Selected Assets
               </Typography>
               <DefaultButton
                 btnName='Senior'
                 variant='outlined'
-                className='border-primary text-primary! mx-0 h-5 w-12 border! bg-transparent! text-xs capitalize!'
+                className='border-primary text-primary! mx-0 h-5 w-fit! border! bg-transparent! text-xs capitalize!'
                 size='small'
                 onClick={() => {}}
               />
             </div>
             <Divider sx={{ borderStyle: 'dashed' }} />
-            <div className='py-1'>
+            <div className='py-1 flex items-center justify-between'>
               <Typography
                 className='text-xs'
                 color={'#666666'}

@@ -19,7 +19,7 @@ const PayableDetailsModal = ({
       showCloseIcon
       closeOnOverlayClick={false}
       onClose={handlePreviewClose}
-      modalClassName='w-full sm:min-w-[595px]'
+      modalClassName='w-full sm:min-w-[595px] overflow-y-auto lg:max-h-[85vh]'
     >
       <>
         <SvgBox invoiceNumber={invoice.id} usedFor='payable' />

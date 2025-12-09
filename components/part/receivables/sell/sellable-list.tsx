@@ -206,12 +206,11 @@ const SellableList = ({ onSellFinishHandler }: Props) => {
           modalClassName='w-[80%] !p-2 sm:min-w-[595px]'
         >
           <div className='mb-8 flex flex-col gap-8 text-center'>
-            <div className='text-primary mb-3 text-base font-semibold'>
-              The system is evaluating the value of selected assets
-            </div>
-
             <div role='status' className='flex items-center justify-center'>
               <ScaleLoader color='#FF5C00' />
+            </div>
+            <div className='text-primary mb-3 text-base font-semibold'>
+              The system is evaluating the value of selected assets
             </div>
           </div>
         </Modal>

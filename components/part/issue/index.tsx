@@ -18,7 +18,6 @@ import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs, { Dayjs } from 'dayjs';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
 import { ChangeEvent, useCallback, useEffect, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { isAddress } from 'viem';
@@ -52,8 +51,6 @@ const CreateInvoice = () => {
   );
   const [invoice, setInvoice] = useState<Payable>(initInvoice);
   const [isOpenConfirmModal, setOpenConfirmModal] = useState(false);
-
-  const router = useRouter();
 
   const {
     invoiceDate,
@@ -104,9 +101,8 @@ const CreateInvoice = () => {
     if (succeeded) {
       setInvoice(initInvoice);
       setSoldItems(() => initSoldItems.map((item) => ({ ...item })));
-      router.push('/');
+      setOpenConfirmModal(false);
     }
-    setOpenConfirmModal(false);
   };
 
   const isValidAbn = (abn: string) =>

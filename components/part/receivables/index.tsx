@@ -138,13 +138,7 @@ const Receivables = () => {
           />
         </NoDataFound>
       ) : (
-        <Grid
-          container
-          spacing={2}
-          className='w-full'
-          sx={{ height: '100%' }}
-          mb={2}
-        >
+        <Grid container spacing={2} className='w-full' mb={2}>
           {data?.pages.map((receivables: Receivable[], pageIdx: number) =>
             receivables.map((receivable, idx) => {
               return (

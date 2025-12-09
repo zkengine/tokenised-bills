@@ -17,12 +17,20 @@ const AutocompleteInput = ({
   return (
     <>
       <Autocomplete
+        freeSolo
         id='recipient-input'
         options={predefinedRecipients}
-        getOptionLabel={(option) => option.title}
+        getOptionLabel={(option) => {
+          if (typeof option === 'string') return option;
+          return option.title;
+        }}
         inputValue={value}
         onChange={(_, newValue) => {
-          inputChangeHandler(newValue?.address ?? '');
+          if (typeof newValue === 'string') {
+            inputChangeHandler(newValue);
+          } else {
+            inputChangeHandler(newValue?.address ?? '');
+          }
         }}
         onInputChange={(_, val, reason) => {
           if (reason !== 'reset') {

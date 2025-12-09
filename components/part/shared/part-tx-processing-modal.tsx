@@ -5,7 +5,6 @@ import { shortenTxHash } from '@/lib/utils';
 import { Transaction } from '@/typings';
 import { Box, Theme, Typography, useMediaQuery } from '@mui/material';
 import Link from 'next/link';
-import { FaExternalLinkAlt } from 'react-icons/fa';
 import { useChainId } from 'wagmi';
 
 interface Props {
@@ -44,19 +43,13 @@ const PartTxProcessingModal = ({
           <div className='flex justify-between'>
             <Typography>Tx Hash</Typography>
             <div className='flex items-center justify-center text-sm text-gray-500'>
-              <a
-                href={`${NETWORK_CONFIG[chainId].blockExplorer.tx}/${txHash}`}
-                target={isOnMobileScreen ? '_blank' : '_ample-art'}
-              >
-                {shortenTxHash(txHash)}
-              </a>
-              <UseCopy copyText={txHash} />
               <Link
                 href={`${NETWORK_CONFIG[chainId].blockExplorer.tx}/${txHash}`}
                 target={isOnMobileScreen ? '_blank' : '_ample-art'}
               >
-                <FaExternalLinkAlt className='ml-2 h-8' />
+                {shortenTxHash(txHash)}
               </Link>
+              <UseCopy copyText={txHash} />
             </div>
           </div>
         </Box>
