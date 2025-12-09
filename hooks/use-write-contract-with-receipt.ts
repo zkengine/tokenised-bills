@@ -1,5 +1,6 @@
 import { WriteParams } from '@/typings';
 import { useCallback, useMemo } from 'react';
+import { ContractFunctionRevertedError } from 'viem';
 import { mantleSepoliaTestnet } from 'viem/chains';
 import {
   BaseError,
@@ -44,20 +45,26 @@ const useWriteContractWithReceipt = () => {
   const failureReason = useMemo(
     () =>
       isTxReceiptError
-        ? txReceiptFailureReason?.message ||
+        ? (txReceiptFailureReason as BaseError)?.shortMessage ||
+          (txReceiptFailureReason as BaseError)?.details ||
+          (txReceiptError as ContractFunctionRevertedError)?.reason ||
           (txReceiptError as BaseError)?.shortMessage ||
+          (txReceiptError as BaseError)?.details ||
           (txReceiptError as BaseError)?.message
         : isTxAttemptError
-        ? txAttemptFailureReason?.message ||
+        ? (txAttemptFailureReason as ContractFunctionRevertedError)?.reason ||
+          (txAttemptFailureReason as BaseError)?.shortMessage ||
+          (txAttemptFailureReason as BaseError)?.details ||
           (txAttemptError as BaseError)?.shortMessage ||
+          (txAttemptError as BaseError)?.details ||
           (txAttemptError as BaseError)?.message
         : undefined,
     [
       isTxReceiptError,
-      txReceiptFailureReason?.message,
+      txReceiptFailureReason,
       txReceiptError,
       isTxAttemptError,
-      txAttemptFailureReason?.message,
+      txAttemptFailureReason,
       txAttemptError,
     ]
   );

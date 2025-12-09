@@ -12,7 +12,7 @@ export const getErrorMessage = (err: any, keepOriginal: boolean = false) => {
     err?.includes('InsufficientFunds') ||
     err?.message?.includes('InsufficientFunds')
   ) {
-    return 'You have insufficient funds to execute the transaction2.';
+    return 'You have insufficient funds to execute the transaction.';
   } else if (
     err?.includes('insufficient funds') ||
     err?.message?.includes('insufficient funds')
