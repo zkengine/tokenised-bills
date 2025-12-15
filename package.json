@@ -15,6 +15,7 @@
     "@mui/icons-material": "^7.3.4",
     "@mui/material": "^7.3.4",
     "@mui/material-nextjs": "^7.3.3",
+    "@ponder/utils": "^0.2.16",
     "@privy-io/react-auth": "3.8.1",
     "@privy-io/wagmi": "2.1.0",
     "@tanstack/query-sync-storage-persister": "5.90.13",
