@@ -4,11 +4,9 @@ import { ArrowForwardIcon } from '@/components/common/icons';
 import { NETWORK_CONFIG } from '@/lib/constants';
 import { formatCurrency } from '@/lib/utils';
 import { investmentRecordAtom, poolInfoAtom } from '@/states';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {
   Box,
   Card,
-  CardActions,
   CardContent,
   CardHeader,
   Collapse,
@@ -203,22 +201,13 @@ const FundingPoolCard: FC<Props> = ({ fpAddress, ...props }) => {
 
           <Box
             sx={{
-              display: 'flex',
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              gap: 1,
+              display: 'grid',
+              gridTemplateColumns: '1fr 1fr',
+              gap: 3,
               mt: 3,
             }}
           >
-            <Box
-              sx={{
-                width: '45%',
-                gap: 1,
-                display: 'flex',
-                flexDirection: 'column',
-              }}
-            >
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
               <Typography
                 className='text-[#666]'
                 fontWeight={500}
@@ -231,7 +220,7 @@ const FundingPoolCard: FC<Props> = ({ fpAddress, ...props }) => {
               ) : (
                 <Typography
                   className='text-[#2C2C2C]'
-                  fontWeight={500}
+                  fontWeight={600}
                   fontSize={14}
                 >
                   {`${formatCurrency(
@@ -241,16 +230,7 @@ const FundingPoolCard: FC<Props> = ({ fpAddress, ...props }) => {
               )}
             </Box>
 
-            <Divider flexItem orientation='vertical' />
-
-            <Box
-              sx={{
-                width: '45%',
-                gap: 1,
-                display: 'flex',
-                flexDirection: 'column',
-              }}
-            >
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
               <Typography
                 className='text-[#666]'
                 fontWeight={500}
@@ -263,7 +243,7 @@ const FundingPoolCard: FC<Props> = ({ fpAddress, ...props }) => {
               ) : (
                 <Typography
                   className='text-[#2C2C2C]'
-                  fontWeight={500}
+                  fontWeight={600}
                   fontSize={14}
                 >
                   {`${formatCurrency(
@@ -272,26 +252,8 @@ const FundingPoolCard: FC<Props> = ({ fpAddress, ...props }) => {
                 </Typography>
               )}
             </Box>
-          </Box>
 
-          <Box
-            sx={{
-              display: 'flex',
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              gap: 1,
-              mt: 3,
-            }}
-          >
-            <Box
-              sx={{
-                width: '45%',
-                gap: 1,
-                display: 'flex',
-                flexDirection: 'column',
-              }}
-            >
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
               <Typography
                 className='text-[#666]'
                 fontWeight={500}
@@ -304,7 +266,7 @@ const FundingPoolCard: FC<Props> = ({ fpAddress, ...props }) => {
               ) : (
                 <Typography
                   className='text-[#2C2C2C]'
-                  fontWeight={500}
+                  fontWeight={600}
                   fontSize={14}
                 >
                   {`${formatCurrency(
@@ -314,16 +276,7 @@ const FundingPoolCard: FC<Props> = ({ fpAddress, ...props }) => {
               )}
             </Box>
 
-            <Divider flexItem orientation='vertical' />
-
-            <Box
-              sx={{
-                width: '45%',
-                gap: 1,
-                display: 'flex',
-                flexDirection: 'column',
-              }}
-            >
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
               <Typography
                 className='text-[#666]'
                 fontWeight={500}
@@ -336,7 +289,7 @@ const FundingPoolCard: FC<Props> = ({ fpAddress, ...props }) => {
               ) : (
                 <Typography
                   className='text-[#2C2C2C]'
-                  fontWeight={500}
+                  fontWeight={600}
                   fontSize={14}
                 >
                   {`${formatCurrency(
@@ -350,48 +303,36 @@ const FundingPoolCard: FC<Props> = ({ fpAddress, ...props }) => {
             </Box>
           </Box>
         </CardContent>
-        <Divider sx={{ borderStyle: 'dashed', pb: 0, mb: 0, mx: 2 }} />
-        <CardActions
-          disableSpacing
-          className='hidden! items-center justify-between'
-        >
-          <Typography className='pl-2!'>My Investment:</Typography>
-          <ExpandMore
-            expand={expanded}
-            onClick={handleExpandClick}
-            aria-expanded={expanded}
-            aria-label='show more'
-          >
-            <ExpandMoreIcon />
-          </ExpandMore>
-        </CardActions>
+        <Divider sx={{ borderStyle: 'dashed', mx: 2 }} />
         <Collapse in={true} timeout='auto' unmountOnExit>
-          <CardContent>
-            <Typography fontSize={11} fontWeight={700} className='leading-5.5'>
-              My Investment:
-            </Typography>
+          <CardContent sx={{ pt: 2, pb: 2 }}>
             <Box
               sx={{
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between',
               }}
-              pr={1}
             >
               <Typography
                 className='text-[#666]'
                 fontWeight={500}
                 fontSize={12}
               >
-                Amount
+                My Investment:
               </Typography>
               {!myInvestment || !decimalsResult || !address || !assetSymbol ? (
-                <span>-</span>
+                <Typography
+                  className='text-[#2C2C2C]'
+                  fontWeight={600}
+                  fontSize={14}
+                >
+                  -
+                </Typography>
               ) : (
                 <Typography
                   className='text-[#2C2C2C]'
-                  fontWeight={500}
-                  fontSize={12}
+                  fontWeight={600}
+                  fontSize={14}
                 >
                   {`${formatCurrency(
                     formatUnits(myInvestment, decimalsResult)

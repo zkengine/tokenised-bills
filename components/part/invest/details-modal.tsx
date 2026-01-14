@@ -66,16 +66,21 @@ const DetailsModal = ({ poolAddress, onDetailsModalClose }: Props) => {
             </span>
           </Box>
         }
-        contentClassName='!w-[22.3125rem] mx-auto'
+        contentClassName='!w-full !max-w-md sm:!max-w-2xl mx-auto'
       >
         <Card sx={{ width: '100%', mt: 3, border: 1, borderColor: '#B1B1B1' }}>
-          <CardContent className='my-7'>
-            <Box mb={'0.5rem'}>
-              <Typography fontSize={16} fontWeight={700}>
+          <CardContent sx={{ py: 3, px: { xs: 2, sm: 4 } }}>
+            {/* Header Section */}
+            <Box mb={3}>
+              <Typography
+                fontSize={{ xs: 16, sm: 18 }}
+                fontWeight={700}
+                mb={0.5}
+              >
                 {poolInfo.name}
               </Typography>
               <Typography
-                className='text-xs leading-6 font-medium tracking-[0.15px] text-[#2C2C2C]'
+                className='text-xs sm:text-sm leading-6 font-medium tracking-[0.15px] text-[#2C2C2C] cursor-pointer hover:underline'
                 onClick={() =>
                   window.open(
                     `${NETWORK_CONFIG[chainId].blockExplorer.token}/${poolAddress}`,
@@ -86,110 +91,100 @@ const DetailsModal = ({ poolAddress, onDetailsModalClose }: Props) => {
                 {shortenAddress(poolAddress)} <UseCopy copyText={poolAddress} />
               </Typography>
             </Box>
-            <ApyCalculation />
 
-            <Divider className='my-4' sx={{ borderStyle: 'dashed' }} />
-
-            {/* <Box
-              display={'hidden'}
-              flexDirection={'row'}
-              justifyContent={'space-between'}
-              alignItems={'center'}
-            >
-              <Typography className="text-xs font-medium leading-[1.375rem] text-[#666]">
-                Investors
-              </Typography>
-              <Typography className="text-xs font-medium leading-[1.375rem] text-[#2c2c2c]">
-                108
-              </Typography>
-            </Box> */}
-            <Box
-              display={'flex'}
-              flexDirection={'row'}
-              justifyContent={'space-between'}
-              alignItems={'center'}
-              className='text-xs leading-5.5 font-medium'
-            >
-              <Typography className='text-xs leading-5.5 font-medium text-[#666]'>
-                Total Supply Amount
-              </Typography>
-              <Typography className='text-xs leading-5.5 font-medium text-[#2c2c2c]'>
-                {`${formatCurrency(
-                  formatUnits(poolInfo.totalSupply, poolInfo.decimals)
-                )} ${assetSymbol}`}
-              </Typography>
-            </Box>
-            <Box
-              display={'flex'}
-              flexDirection={'row'}
-              justifyContent={'space-between'}
-              alignItems={'center'}
-            >
-              <Typography className='text-xs leading-5.5 font-medium text-[#666]'>
-                Remaining
-              </Typography>
-              <Typography className='text-xs leading-5.5 font-medium text-[#2c2c2c]'>
-                {`${formatCurrency(
-                  formatUnits(poolInfo.availableAssets, poolInfo.decimals)
-                )} ${assetSymbol}`}
-              </Typography>
-            </Box>
-            <Box
-              display={'flex'}
-              flexDirection={'row'}
-              justifyContent={'space-between'}
-              alignItems={'center'}
-            >
-              <Typography className='text-xs leading-5.5 font-medium text-[#666]'>
-                Invested
-              </Typography>
-              <Typography className='text-xs leading-5.5 font-medium text-[#2c2c2c]'>
-                {`${formatCurrency(
-                  formatUnits(poolInfo.totalInvested, poolInfo.decimals)
-                )} ${assetSymbol}`}
-              </Typography>
-            </Box>
-            <Box
-              display={'flex'}
-              flexDirection={'row'}
-              justifyContent={'space-between'}
-              alignItems={'center'}
-            >
-              <Typography className='text-xs leading-5.5 font-medium text-[#666]'>
-                Receivables Value
-              </Typography>
-              <Typography className='text-xs leading-5.5 font-medium text-[#2c2c2c]'>
-                {`${formatCurrency(
-                  formatUnits(
-                    poolInfo.totalValueOfReceivables,
-                    poolInfo.decimals
-                  )
-                )} ${assetSymbol}`}
-              </Typography>
+            {/* APY Section */}
+            <Box mb={3}>
+              <ApyCalculation />
             </Box>
 
-            <Divider className='my-4' sx={{ borderStyle: 'dashed' }} />
+            <Divider sx={{ borderStyle: 'dashed', mb: 3 }} />
 
-            <Typography className='text-[0.6875rem] leading-5.5 font-bold text-black'>
-              My Investment
-            </Typography>
+            {/* Pool Statistics - Grid Layout on Large Screens */}
             <Box
-              display={'flex'}
-              flexDirection={'row'}
-              justifyContent={'space-between'}
-              alignItems={'center'}
+              sx={{
+                display: 'grid',
+                gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr' },
+                gap: { xs: 2, sm: 3 },
+                mb: 3,
+              }}
             >
-              <Typography className='text-xs leading-5.5 font-medium text-[#666]'>
-                Amount
+              <Box>
+                <Typography className='text-xs font-medium text-[#666] mb-1'>
+                  Total Supply Amount
+                </Typography>
+                <Typography className='text-sm sm:text-base font-semibold text-[#2c2c2c]'>
+                  {`${formatCurrency(
+                    formatUnits(poolInfo.totalSupply, poolInfo.decimals)
+                  )} ${assetSymbol}`}
+                </Typography>
+              </Box>
+
+              <Box>
+                <Typography className='text-xs font-medium text-[#666] mb-1'>
+                  Remaining
+                </Typography>
+                <Typography className='text-sm sm:text-base font-semibold text-[#2c2c2c]'>
+                  {`${formatCurrency(
+                    formatUnits(poolInfo.availableAssets, poolInfo.decimals)
+                  )} ${assetSymbol}`}
+                </Typography>
+              </Box>
+
+              <Box>
+                <Typography className='text-xs font-medium text-[#666] mb-1'>
+                  Invested
+                </Typography>
+                <Typography className='text-sm sm:text-base font-semibold text-[#2c2c2c]'>
+                  {`${formatCurrency(
+                    formatUnits(poolInfo.totalInvested, poolInfo.decimals)
+                  )} ${assetSymbol}`}
+                </Typography>
+              </Box>
+
+              <Box>
+                <Typography className='text-xs font-medium text-[#666] mb-1'>
+                  Receivables Value
+                </Typography>
+                <Typography className='text-sm sm:text-base font-semibold text-[#2c2c2c]'>
+                  {`${formatCurrency(
+                    formatUnits(
+                      poolInfo.totalValueOfReceivables,
+                      poolInfo.decimals
+                    )
+                  )} ${assetSymbol}`}
+                </Typography>
+              </Box>
+            </Box>
+
+            <Divider sx={{ borderStyle: 'dashed', mb: 3 }} />
+
+            {/* My Investment Section */}
+            <Box>
+              <Typography className='text-sm font-bold text-black mb-2'>
+                My Investment
               </Typography>
-              <Typography className='text-xs leading-5.5 font-medium text-[#2c2c2c]'>
-                {`${formatCurrency(
-                  formatUnits(
-                    investmentRecord.investedAmount,
-                    poolInfo.decimals
-                  )
-                )} ${assetSymbol}`}
-              </Typography>
+              <Box
+                sx={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  p: 2,
+                  bgcolor: '#F5F5F5',
+                  borderRadius: 1,
+                }}
+              >
+                <Typography className='text-xs font-medium text-[#666]'>
+                  Amount
+                </Typography>
+                <Typography className='text-sm sm:text-base font-semibold text-[#2c2c2c]'>
+                  {`${formatCurrency(
+                    formatUnits(
+                      investmentRecord.investedAmount,
+                      poolInfo.decimals
+                    )
+                  )} ${assetSymbol}`}
+                </Typography>
+              </Box>
             </Box>
           </CardContent>
         </Card>
