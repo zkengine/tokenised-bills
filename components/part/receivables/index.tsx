@@ -181,13 +181,20 @@ const Receivables = () => {
         <SellableList onSellFinishHandler={drawerCloseHandler} />
       )}
 
-      <div
-        className='fixed bottom-6 mr-6 z-50 flex h-[60px] w-[60px] cursor-pointer items-center justify-center self-end rounded-full bg-white shadow-[0px_4px_20px_rgba(0,0,0,0.15)]'
-        onClick={() => setOpenCreateDrawer(true)}
-        title='Issue a new invoice'
-      >
-        <Image src={plusPrimary} alt='create invoice' width={24} height={24} />
-      </div>
+      {account && (
+        <div
+          className='fixed bottom-6 mr-6 z-50 flex h-[60px] w-[60px] cursor-pointer items-center justify-center self-end rounded-full bg-white shadow-[0px_4px_20px_rgba(0,0,0,0.15)]'
+          onClick={() => setOpenCreateDrawer(true)}
+          title='Issue a new invoice'
+        >
+          <Image
+            src={plusPrimary}
+            alt='create invoice'
+            width={24}
+            height={24}
+          />
+        </div>
+      )}
 
       <Drawer
         anchor='bottom'
